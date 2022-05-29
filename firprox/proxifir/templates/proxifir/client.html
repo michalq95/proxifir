@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ client.name }}</title>
+  </head>
+  <body>
+      ID: {{client.id}}<br>
+      Name: {{client.name}}<br>
+      firstName: {{client.firstName}}<br>
+      lastName: {{client.lastName}}<br>
+      nip: {{client.nip}}<br>
+      balance: {{client.balance}}<br>
+      coopDate: {{client.coopDate}}<br>
+      phoneNumber: {{client.phoneNumber}}<br>
+     
+
+       <a href="{% url 'proxifir:clients' %}">Return </a>
+
+
+  </body>
+</html>

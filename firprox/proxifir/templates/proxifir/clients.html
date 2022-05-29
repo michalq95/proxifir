@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'proxifir/style.css' %}">
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Clients</title>
+  </head>
+  <body>
+    <a href="{% url 'proxifir:index' %}">Zamowienia</a><br>
+      {% if clientsList %}
+           <table>
+      <tr><th>id</th><th>name</th><th>NIP</th><th>balance</th><th>coopdate</th><th>phoneNumber</th></tr>
+    {% for client in clientsList %}
+        <tr>
+          <th>{{client.id}}</th>
+          <th><a href="{% url 'proxifir:client' client.id%}">{{client.name }}</a></th>
+          <th>{{client.nip}}</th>
+          <th>{{client.balance}}</th>
+          <th>{{client.coopDate}}</th>
+          <th>{{client.phoneNumber}}</th>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No clients are available.</p>
+{% endif %}
+
+  </body>
+</html>

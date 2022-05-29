@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ order.name }}</title>
+  </head>
+  <body>
+      ID: {{order.id}}<br>
+      client: {{order.client.name}}<br>
+      price: {{order.price}}<br>
+      startDate: {{order.startDate}}<br>
+      returnDate: {{order.returnDate}}<br>
+      subject: {{order.subject}}<br>
+      status: {{order.status}}<br>
+      comment: {{order.comment}}<br>
+     
+
+       <a href="{% url 'proxifir:index' %}">Return </a>
+
+
+  </body>
+</html>
