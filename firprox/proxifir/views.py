@@ -16,8 +16,25 @@ class IndexView(ListView):
     context_object_name = 'orderList'
     paginate_by = 30
     
+    #def get_queryset(self):
+    #    return Order.objects.order_by('-id')
+
     def get_queryset(self):
-        return Order.objects.order_by('-id')#[:2]
+        filterclient_val = self.request.GET.get('filterclient', '')
+        filtersubject_val = self.request.GET.get('filtersubject', '')
+        filterstatus_val = self.request.GET.get('filterstatus', '')
+        new_context = Order.objects.filter(
+            client__name__contains=filterclient_val,subject__contains = filtersubject_val, status__contains = filterstatus_val)
+        return new_context
+#
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['filterclient'] = self.request.GET.get('filterclient', '')
+        context['filtersubject'] = self.request.GET.get('filtersubject', '')
+        context['filterstatus'] = self.request.GET.get('filterstatus', '')
+        return context
+
+
 
 class ClientsView(generic.ListView):
     template_name = 'proxifir/clients.html'

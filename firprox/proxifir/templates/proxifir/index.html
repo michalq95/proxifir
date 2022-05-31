@@ -2,51 +2,78 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'proxifir/style.css' %}">
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Orders</title>
-  </head>
-  <body>
+</head>
+<body>
     <a href="{% url 'proxifir:clients' %}">Klienci</a><br>
     <a href="{% url 'proxifir:ordercreate' %}">Stworz nowe</a><br>
-    {% if page_obj %}
-           <table>
-      <tr><th>id</th><th>client</th><th>subject</th><th>start</th><th>returnDate</th> <th>status</th><th>Edycja</th><th>Usun</th></tr>
-    {% for order in page_obj %}
-        <tr>
-          <th>{{order.id}}</th>
-          <th><a href="{% url 'proxifir:client' order.client.id%}"> {{order.client.name}}</a></th>
-          <th><a href="{% url 'proxifir:order' order.id%}"> {{order.subject}}</a></th>
-          <th>{{order.startDate}}</th>
-          <th>{{order.returnDate}}</th>
-          <th>{{order.status}}</th>
-          <th><a href="{% url 'proxifir:orderupdate' order.id%}">Edytuj</a></th>
-          <th><a href="{% url 'proxifir:orderdelete' order.id%}">Usun</a></th>
-        </tr>
-    {% endfor %}
-    </table>
-{% else %}
-    <p>No orders are available.</p>
-{% endif %}
 
-<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
+<table>
+  <tr><th>
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
+<button type="button" method="get" name="sortid" onclick="{% url 'proxifir:index' %}">ID</button>
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
+</th><th>client</th><th>subject</th><th>start</th><th>returnDate</th> <th>status</th><th>Edycja</th><th>Usun</th></tr>
+  <tr><th>filtruj</th><th>
+    <form method="get" action="{% url 'proxifir:index' %}">
+        <input type="text" value="{{filterclient}}" name="filterclient"/></form>
 
-  
-  </body>
-</html>
+    </th><th>
+        <form method="get" action="{% url 'proxifir:index' %}">
+            <input type="text" value="{{filtersubject}}" name="filtersubject"/></form>
+
+        </th><th>start</th><th>returnDate</th> <th>
+            <form method="get" action="{% url 'proxifir:index' %}" name="filterstatus">
+                <select name="filterstatus"  >
+                  <option value=""selected="selected">Wszystkie</option>
+                  <option value="Przyjete" >Przyjete</option>
+                  <option value="outsourcowane">outsourcowane</option>
+                  <option value="komplikacje">komplikacje</option>
+                  <option value="wykonane">wykonane</option>
+                  <option value="oddane">oddane</option>
+
+
+                  <input type="submit" value="zatwierdz">          </select>
+
+              </form></th><th></th><th>Usun</th></tr>
+              {% if page_obj %}
+              {% for order in page_obj %}
+              <tr>
+                  <th>{{order.id}}</th>
+                  <th><a href="{% url 'proxifir:client' order.client.id%}"> {{order.client.name}}</a></th>
+                  <th><a href="{% url 'proxifir:order' order.id%}"> {{order.subject}}</a></th>
+                  <th>{{order.startDate}}</th>
+                  <th>{{order.returnDate}}</th>
+                  <th>{{order.status}}</th>
+                  <th><a href="{% url 'proxifir:orderupdate' order.id%}">Edytuj</a></th>
+                  <th><a href="{% url 'proxifir:orderdelete' order.id%}">Usun</a></th>
+              </tr>
+              {% endfor %}
+          </table>
+          {% else %}
+          <p>No orders are available.</p>
+          {% endif %}
+
+          <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
+
+    </body>
+    </html>
