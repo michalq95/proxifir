@@ -9,6 +9,9 @@ urlpatterns = [
     path('order<int:pk>',views.OrderView.as_view(),name='order'),
     path('order/create',views.OrderCreate.as_view(),name='ordercreate'),
     path('order<int:pk>/update',views.OrderUpdate.as_view(), name='orderupdate'),
-    path('order<int:pk>/delete',views.OrderDelete.as_view(),name='orderdelete')
+    path('order<int:pk>/delete',views.OrderDelete.as_view(),name='orderdelete'),
+    path('clients/create', views.ClientCreate.as_view(), name='clientcreate'),
+    path('clients<int:pk>/update', views.ClientUpdate.as_view(), name='clientupdate'),
+    path('clients<int:pk>/delete', views.ClientDelete.as_view(), name='clientdelete'),
 
 ]

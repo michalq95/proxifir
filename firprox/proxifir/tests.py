@@ -1,4 +1,4 @@
 from django.test import TestCase
-from polls.models import *
+import models
 
 # Create your tests here.

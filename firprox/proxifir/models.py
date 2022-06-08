@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
@@ -11,12 +12,14 @@ class Client(models.Model):
     firstName = models.CharField(max_length=15,blank = True)
     lastName = models.CharField(max_length=15,blank = True)
     nip = models.CharField(max_length=10,blank = True)
-    balance = models.DecimalField(max_digits=15,decimal_places = 2,blank = True)
-    coopDate = models.DateField(blank = True)
+    balance = models.DecimalField(max_digits=15,decimal_places = 2,blank = True, null = True)
+    coopDate = models.DateField(blank = True, null=True, default=timezone.now)
     phoneNumber = models.CharField(max_length=12,blank=True)
 
 
 class Order(models.Model):
+    def __str__(self):
+        return self.subject
     client = models.ForeignKey('Client',on_delete = models.CASCADE)
     price = models.DecimalField(max_digits=13,decimal_places = 2)
     startDate = models.DateField(default = timezone.now, blank = True)
